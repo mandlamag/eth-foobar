@@ -41,19 +41,10 @@ contract Participants  is Owned {
         return (participants[index].participant, participants[index].name);
     }
 
-//     function getParticipants() public view  returns (address[]) {
-//         address[] memory activeAddresses = new address[](getParticipantCount());
-
-//         uint currentCounter = 0;
-//         for (uint i = 0; i < participants.length; i++) {
-//             address participant = participants[i];
-//             Participant memory mem = accountToParticipant[participant];
-//             if (mem.active) {
-//                 activeAddresses[currentCounter++] = participant;
-//             }
-//         }
-//         return activeAddresses;
-//     }
+    // function getParticipants() public view  {
+        
+    //    return participants;
+    // }
 
     function getParticipantCount() public view returns (uint) {
         uint count = 0;
