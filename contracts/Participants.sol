@@ -1,7 +1,9 @@
 pragma solidity ^0.4.19;
 
+import "./IParticipants.sol";
 import "./Owned.sol";
-contract Participants  is Owned {
+
+contract Participants  is IParticipants, Owned {
 
     event ParticipationChanged(address member, bool isParticipant);
     struct Participant {
@@ -11,9 +13,9 @@ contract Participants  is Owned {
         bool active;
     }
 
-    mapping (address => uint) public participantId;
+    mapping (address => uint) private participantId;
     mapping (address => Participant) private accountToParticipant;
-    Participant[] public participants;
+    Participant[] private participants;
 
     function addParticipant(address targetParticipant, string participantName) onlyOwner public {
         uint id = participantId[targetParticipant];
@@ -26,7 +28,7 @@ contract Participants  is Owned {
         ParticipationChanged(targetParticipant, true);
     }
 
-    function removeParticipant(address targetParticipant) onlyOwner public {
+    function removeParticipant(address targetParticipant) public onlyOwner {
         require(participantId[targetParticipant] != 0);
 
         for (uint i = participantId[targetParticipant]; i<participants.length-1; i++){
@@ -36,7 +38,7 @@ contract Participants  is Owned {
         participants.length--;
     }
 
-    function getParticipant(address participant) public view returns (address, string) {
+    function getParticipant(address participant) public view onlyParticipants returns (address, string) {
         uint index = participantId[participant];
         return (participants[index].key, participants[index].name);
     }

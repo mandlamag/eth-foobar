@@ -97,23 +97,23 @@ contract('Participants', (accounts) => {
     }
   });
 
-//   it('only active participants can get other participant details', async() => {
-//     let instance = await ParticipantStoreAbtraction.new();
+  it('only active participants can get other participant details', async() => {
+    let instance = await ParticipantStoreAbtraction.new();
 
-//     await instance.addParticipant(accounts[1], "Chris");
-//     await instance.addParticipant(accounts[2], "Badi");
-//     await instance.addParticipant(accounts[3], "Mandla");
-//     await instance.addParticipant(accounts[4], "Theo");
+    await instance.addParticipant(accounts[1], "Chris");
+    await instance.addParticipant(accounts[2], "Badi");
+    await instance.addParticipant(accounts[3], "Mandla");
+    await instance.addParticipant(accounts[4], "Theo");
 
-//     await instance.removeParticipant(accounts[1]);
+    await instance.removeParticipant(accounts[2]);
 
-//     try {
-//       await instance.getParticipant(accounts[2], {from: accounts[1]});
-//       assert.fail("should not be able to get participant if participant has been removed.");
-//     } catch(err) {
-//       assert.equal(err.message, "VM Exception while processing transaction: revert");
-//     }
-//   });
+    try {
+      await instance.getParticipant(accounts[3], {from: accounts[2]});
+      assert.fail("should not be able to get participant if participant has been removed.");
+    } catch(err) {
+      assert.equal(err.message, "VM Exception while processing transaction: revert");
+    }
+  });
 
   it('only active participants are returned after a remove', async() => {
     let instance = await ParticipantStoreAbtraction.new();
