@@ -115,29 +115,29 @@ contract('Participants', (accounts) => {
 //     }
 //   });
 
-//   it('only active participants are returned after a remove', async() => {
-//     let instance = await ParticipantStoreAbtraction.new();
+  it('only active participants are returned after a remove', async() => {
+    let instance = await ParticipantStoreAbtraction.new();
 
-//     await instance.addParticipant(accounts[1], "Chris");
-//     await instance.addParticipant(accounts[2], "Badi");
-//     await instance.addParticipant(accounts[3], "Mandla");
-//     await instance.addParticipant(accounts[4], "Theo");
+    await instance.addParticipant(accounts[1], "Chris");
+    await instance.addParticipant(accounts[2], "Badi");
+    await instance.addParticipant(accounts[3], "Mandla");
+    await instance.addParticipant(accounts[4], "Theo");
 
-//     await instance.removeParticipant(accounts[2]);
+    await instance.removeParticipant(accounts[2]);
 
-//     {
-//       var numberOfActiveAccounts = await instance.getParticipantCount();
-//       assert.equal(numberOfActiveAccounts, 3);
-//     }
+    {
+      var numberOfActiveAccounts = await instance.getParticipantCount();
+      assert.equal(numberOfActiveAccounts, 3);
+    }
 
-//     {
-//       var participantAccounts = await instance.getParticipantAccounts();
-//       assert.equal(participantAccounts.length, 3);
-//       assert.equal(participantAccounts[0], accounts[1]);
-//       assert.equal(participantAccounts[1], accounts[3]);
-//       assert.equal(participantAccounts[2], accounts[4]);
-//     }
-//   });
+    {
+      var participantAccounts = await instance.getParticipantAccounts();
+      assert.equal(participantAccounts.length, 3);
+      assert.equal(participantAccounts[0], accounts[1]);
+      assert.equal(participantAccounts[1], accounts[3]);
+      assert.equal(participantAccounts[2], accounts[4]);
+    }
+  });
   
 });
 
