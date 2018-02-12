@@ -5,7 +5,7 @@ contract Participants  is Owned {
 
     event ParticipationChanged(address member, bool isParticipant);
     struct Participant {
-        address participant;
+        address key;
         string name;
         uint participantSince;
         bool active;
@@ -22,7 +22,7 @@ contract Participants  is Owned {
             id = participants.length++;
         }
 
-        participants[id] = Participant({participant: targetParticipant, participantSince:now, name: participantName, active:true});
+        participants[id] = Participant({key: targetParticipant, participantSince:now, name: participantName, active:true});
         ParticipationChanged(targetParticipant, true);
     }
 
@@ -36,22 +36,29 @@ contract Participants  is Owned {
         participants.length--;
     }
 
-   function getParticipant(address participant) public view returns (address, string) {
+    function getParticipant(address participant) public view returns (address, string) {
         uint index = participantId[participant];
-        return (participants[index].participant, participants[index].name);
+        return (participants[index].key, participants[index].name);
     }
 
-    // function getParticipants() public view  {
-        
-    //    return participants;
-    // }
+    function getParticipantAccounts() public view returns(address[]) {
+        uint len = participants.length;
+        address[] memory keys = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            keys[i] = participants[i].key;
+        }
+
+        return (keys);
+
+
+    }
 
     function getParticipantCount() public view returns (uint) {
         uint count = 0;
         for (uint i = 0; i < participants.length; i++) {
-             count++;
+            count++;
         }
         return count;
-   }
+    }
 
 }

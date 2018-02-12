@@ -42,60 +42,60 @@ contract('Participants', (accounts) => {
 
   });
 
-//   it('should not get participant details that doesnt exist', async() => {
-//     let instance = await ParticipantStoreAbtraction.new();
+  it('should not get participant details that doesnt exist', async() => {
+    let instance = await ParticipantStoreAbtraction.new();
 
-//     await instance.addParticipant(accounts[1], "Chris");
-//     await instance.addParticipant(accounts[2], "Badi");
-//     await instance.addParticipant(accounts[3], "Mandla");
-//     await instance.addParticipant(accounts[4], "Theo");
-
-
-//     try {
-//       var participant = await instance.getParticipant(accounts[7]);
-//       console.log('participant',participant[2])
-//       assert.fail("should not be able to get an unknown participant.");
-//     } catch(err) {
-//       assert.equal(err.message, "VM Exception while processing transaction: revert");
-//     }
-//   });  
-
-//   it('can get all participant accounts', async() => {
-//     let instance = await ParticipantStoreAbtraction.new();
-
-//     await instance.addParticipant(accounts[1], "Chris");
-//     await instance.addParticipant(accounts[2], "Badi");
-//     await instance.addParticipant(accounts[3], "Mandla");
-//     await instance.addParticipant(accounts[4], "Theo");
-
-//     {
-//       var numberOfActiveAccounts = await instance.getParticipantCount();
-//       assert.equal(numberOfActiveAccounts, 4);
-//     }
-
-//     {
-//       var participantAccounts = await instance.getParticipantAccounts();
-//       assert.equal(participantAccounts.length, 4);
-//       assert.equal(participantAccounts[0], accounts[1]);
-//       assert.equal(participantAccounts[1], accounts[2]);
-//       assert.equal(participantAccounts[2], accounts[3]);
-//       assert.equal(participantAccounts[3], accounts[4]);
-//     }
-//   });
+    await instance.addParticipant(accounts[1], "Chris");
+    await instance.addParticipant(accounts[2], "Badi");
+    await instance.addParticipant(accounts[3], "Mandla");
+    await instance.addParticipant(accounts[4], "Theo");
 
 
-//   it('only admin can add participants', async() => {
-//     let instance = await ParticipantStoreAbtraction.new();
+    try {
+      var participant = await instance.getParticipant(accounts[7]);
+      console.log('participant',participant[2])
+      assert.fail("should not be able to get an unknown participant.");
+    } catch(err) {
+      assert.equal(err.message, "VM Exception while processing transaction: revert");
+    }
+  });
 
-//     await instance.addParticipant(accounts[1], "Chris");
+  it('can get all participant accounts', async() => {
+    let instance = await ParticipantStoreAbtraction.new();
 
-//     try {
-//       await instance.addParticipant(accounts[2], "Badi", {from: accounts[1]});
-//       assert.fail("should not be able to add participant.");
-//     } catch(err) {
-//       assert.equal(err.message, "VM Exception while processing transaction: revert");
-//     }
-//   });
+    await instance.addParticipant(accounts[1], "Chris");
+    await instance.addParticipant(accounts[2], "Badi");
+    await instance.addParticipant(accounts[3], "Mandla");
+    await instance.addParticipant(accounts[4], "Theo");
+
+    {
+      var numberOfActiveAccounts = await instance.getParticipantCount();
+      assert.equal(numberOfActiveAccounts, 4);
+    }
+
+    {
+      var participantAccounts = await instance.getParticipantAccounts();
+      assert.equal(participantAccounts.length, 4);
+      assert.equal(participantAccounts[0], accounts[1]);
+      assert.equal(participantAccounts[1], accounts[2]);
+      assert.equal(participantAccounts[2], accounts[3]);
+      assert.equal(participantAccounts[3], accounts[4]);
+    }
+  });
+
+
+  it('only admin can add participants', async() => {
+    let instance = await ParticipantStoreAbtraction.new();
+
+    await instance.addParticipant(accounts[1], "Chris");
+
+    try {
+      await instance.addParticipant(accounts[2], "Badi", {from: accounts[1]});
+      assert.fail("should not be able to add participant.");
+    } catch(err) {
+      assert.equal(err.message, "VM Exception while processing transaction: revert");
+    }
+  });
 
 //   it('only active participants can get other participant details', async() => {
 //     let instance = await ParticipantStoreAbtraction.new();
